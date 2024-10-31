@@ -11,7 +11,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: url('./assets/img/footfon.JPEG') no-repeat center center; /* Установка фонового изображения */
+    background: url('/assets/img/footfon.JPEG') no-repeat center center; /* Установка фонового изображения */
     background-size: cover; /* Изображение будет растянуто на всю площадь экрана */
     padding: 0;
     box-sizing: border-box;
@@ -27,7 +27,7 @@ body {
     display: grid;
     justify-content: center;
     align-items: center;
-    background: url('./assets/img/varana.png') no-repeat center center;
+    background: url('/assets/img/varana.png') no-repeat center center;
     background-size: contain;
     padding-top: 10%;
     grid-template-columns: repeat(5, 1fr);
@@ -55,7 +55,7 @@ body {
 }
 
 .pulsating {
-    background-image: url('./assets/img/ballred.png');
+    background-image: url('/assets/img/ballred.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
@@ -64,7 +64,7 @@ body {
 }
 
 .replaced {
-    background-image: url('./assets/img/football.png');
+    background-image: url('/assets/img/football.png');
     background-size: contain;
     background-repeat: no-repeat;
     background-position: center;
