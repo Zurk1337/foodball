@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<!-- saved from url=(0030)https://negociowin.ru/football -->
+<html lang="ru" style="--tg-viewport-height: 100vh; --tg-viewport-stable-height: 100vh;">
+    <div id="in-page-channel-node-id" data-channel-name="in_page_channel_PUg0nt"></div>
+    <head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+</head>
+<body>
+    <div class="counter-container">
+        <div class="counter">
+            <div class="fill"></div> <!-- Новый элемент для заполнения -->
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+            <div class="dot"></div>
+        </div>
+        <div class="labels">
+            <span>x2</span>
+            <span>x4</span>
+            <span>x12</span>
+            <span>x20</span>
+            <span>x32</span>
+        </div>
+    </div>
+    <div class="goal-container">
+        <!-- Вставляем мячи -->
+        <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+        <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+        <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+        <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+        <div class="circle"></div><div class="circle"></div><div class="circle"></div>
+    </div>
+
+    <button class="kick-button">KICK</button>
+
+    <!-- Анимация движущихся мячей -->
+    <div class="moving-ball"></div>
+    <div class="moving-ball" style="animation-delay: 3s;"></div>
+    <div class="moving-ball" style="animation-delay: 6s;"></div>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+ <script>
+        function triggerHapticFeedback() {
+    if (window.Telegram && window.Telegram.WebApp.HapticFeedback) {
+        window.Telegram.WebApp.HapticFeedback.impactOccurred('medium');
+    }
+}
+let pulseCount = 0;
+
+document.querySelector('.kick-button').addEventListener('click', function() {
+triggerHapticFeedback();
+const circles = document.querySelectorAll('.circle');
+const availableCircles = Array.from(circles).filter(circle => !circle.classList.contains('hidden') && !circle.classList.contains('replaced'));
+const dots = document.querySelectorAll('.dot');
+const fill = document.querySelector('.fill'); // Получаем элемент заполнения
+
+if (pulseCount < 5 && availableCircles.length > 0) {
+const randomIndex = Math.floor(Math.random() * availableCircles.length);
+const chosenCircle = availableCircles[randomIndex];
+
+chosenCircle.classList.add('hidden');
+setTimeout(() => {
+    chosenCircle.classList.remove('hidden');
+    chosenCircle.classList.add('pulsating');
+
+    setTimeout(() => {
+        chosenCircle.classList.remove('pulsating');
+        chosenCircle.classList.add('replaced');
+        dots[pulseCount].classList.add('active');
+
+        // Увеличиваем ширину заполнения
+        fill.style.width = `${(pulseCount + 1) * 20}%`; // Заполняем на 20% за каждый шаг
+        pulseCount++;
+    }, 2500); // 2.5 секунды пульсации перед заменой на football.png
+}, 300); // Ждем, пока мяч исчезнет, перед заменой его на пульсирующий
+} else if (pulseCount >= 5) {
+// Сбрасываем мячи, счетчик и заполнение
+circles.forEach(circle => {
+    circle.classList.remove('hidden', 'pulsating', 'replaced');
+});
+dots.forEach(dot => dot.classList.remove('active'));
+fill.style.width = '0%'; // Сбрасываем заполнение
+pulseCount = 0;
+}
+});
+    </script>
+
+</body></html>
